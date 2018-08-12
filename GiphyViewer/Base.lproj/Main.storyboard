@@ -1,24 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" systemVersion="17A277" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="arM-j5-4M8">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Gif List View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="GifListViewController" customModule="GiphyViewer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" placeholder="Funny cats" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nYT-sX-27M">
+                                <rect key="frame" x="0.0" y="64" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="srw-XL-Har">
+                                <rect key="frame" x="5" y="120" width="365" height="547"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Ngu-aP-Y3w">
+                                    <size key="itemSize" width="359" height="201"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GifListViewCellIdentifier" id="lEW-3r-Odp" customClass="GifListViewCell" customModule="GiphyViewer" customModuleProvider="target">
+                                        <rect key="frame" x="3" y="0.0" width="359" height="201"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="359" height="201"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Udf-a0-B5U" customClass="FLAnimatedImageView">
+                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="201"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="Udf-a0-B5U" secondAttribute="trailing" id="FLr-jH-lB7"/>
+                                            <constraint firstItem="Udf-a0-B5U" firstAttribute="top" secondItem="lEW-3r-Odp" secondAttribute="top" id="VHa-aX-uqq"/>
+                                            <constraint firstAttribute="bottom" secondItem="Udf-a0-B5U" secondAttribute="bottom" id="aTF-mB-N51"/>
+                                            <constraint firstItem="Udf-a0-B5U" firstAttribute="centerX" secondItem="lEW-3r-Odp" secondAttribute="centerX" id="kOb-OM-exl"/>
+                                            <constraint firstItem="Udf-a0-B5U" firstAttribute="centerX" secondItem="lEW-3r-Odp" secondAttribute="centerX" id="lfm-IU-COS"/>
+                                            <constraint firstAttribute="bottom" secondItem="Udf-a0-B5U" secondAttribute="bottom" id="qIL-kO-KHo"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="animatedImage" destination="Udf-a0-B5U" id="0Tg-0r-phV"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ZdW-wl-pui">
+                                <rect key="frame" x="177" y="323" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="srw-XL-Har" firstAttribute="top" secondItem="nYT-sX-27M" secondAttribute="bottom" id="2TH-as-TKx"/>
+                            <constraint firstItem="srw-XL-Har" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="5" id="8FJ-EP-0UV"/>
+                            <constraint firstItem="nYT-sX-27M" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="SrL-Zc-DWC"/>
+                            <constraint firstItem="srw-XL-Har" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="TBM-ZH-3Jd"/>
+                            <constraint firstItem="nYT-sX-27M" firstAttribute="centerX" secondItem="srw-XL-Har" secondAttribute="centerX" id="TKO-Gj-CPV"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="srw-XL-Har" secondAttribute="trailing" constant="5" id="lyk-O9-ixn"/>
+                            <constraint firstItem="nYT-sX-27M" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="qmT-rH-gH9"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" id="VqK-fA-zXD"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="ZdW-wl-pui" id="k1m-X9-gfF"/>
+                        <outlet property="gifListCollectionView" destination="srw-XL-Har" id="Uha-2S-byp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="972" y="32.833583208395808"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="t8g-oU-CZg">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="arM-j5-4M8" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8iH-lu-Apn">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="M6g-Yd-ehd"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ui3-6i-G4V" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="117.59999999999999" y="691.304347826087"/>
         </scene>
     </scenes>
 </document>
