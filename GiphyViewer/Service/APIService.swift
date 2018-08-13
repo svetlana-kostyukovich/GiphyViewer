@@ -40,28 +40,22 @@ class APIService: APIServiceProtocol {
         case Trending
         case Search(String)
         
-        /*var parameters: [String: Any] {
-            return ["api_key" : API.APPID, "limit" : 100, "q": searchRequest]
-        }*/
+        var parameters: [String: Any] {
+            switch self {
+            case .Trending:
+                return ["api_key" : API.APPID, "limit" : 100]
+            case .Search(let searchRequest):
+                return ["api_key" : API.APPID, "limit" : 100, "q": searchRequest]
+            }
+        }
     }
     
     // Simulate a long waiting for fetching
     func fetchTrendingGif( complete: @escaping ( _ success: Bool, _ gifs: [Gif], _ error: APIError? )->() ) {
         DispatchQueue.global().async {
-            let parameters: [String : Any] = ["api_key" : API.APPID, "limit" : 100]
+            let parameters = RequestParameters.Trending.parameters
             let path = APIService.ResourcePath.Trending.path
             
-            //let request = Alamofire.request(.GET, path, parameters: params)
-            /*let path = Bundle.main.path(forResource: "content", ofType: "json")!
-            do {
-                let data = try Data(contentsOf: URL(fileURLWithPath: path))
-                let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .iso8601
-                    let gifs = try decoder.decode(Gifs.self, from: data)
-                complete( true,  gifs.data, nil )
-            } catch {
-                print(error)
-            }*/
             Alamofire.request(path, parameters: parameters).responseJSON { response in
                 switch response.result {
                 case .success(_):
@@ -81,20 +75,12 @@ class APIService: APIServiceProtocol {
                     complete(false, [Gif](), nil)
                 }
             }
-          /*  let decoder = JSONDecoder()
-            //decoder.dateDecodingStrategy = .iso8601
-            do {
-                let gifs = try decoder.decode(Gifs.self, from: data)
-            } catch {
-                print(error)
-            }
-            complete( true,  gifs.gifs, nil ) */
         }
     }
     
     func fetchSearchGif( searchRequest: String, complete: @escaping ( _ success: Bool, _ gifs: [Gif], _ error: APIError? )->() ) {
         DispatchQueue.global().async {
-            let parameters: [String : Any] = ["api_key" : API.APPID, "limit" : 100, "q": searchRequest]
+            let parameters = RequestParameters.Search(searchRequest).parameters
             let path = APIService.ResourcePath.Search.path
 
             Alamofire.request(path, parameters: parameters).responseJSON { response in
