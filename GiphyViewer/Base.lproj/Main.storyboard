@@ -18,28 +18,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" placeholder="Funny cats" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nYT-sX-27M">
+                            <searchBar contentMode="redraw" placeholder="Funny cats" translatesAutoresizingMaskIntoConstraints="NO" id="nYT-sX-27M">
                                 <rect key="frame" x="0.0" y="64" width="375" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="srw-XL-Har">
-                                <rect key="frame" x="5" y="120" width="365" height="547"/>
+                                <rect key="frame" x="5" y="125" width="365" height="542"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Ngu-aP-Y3w">
-                                    <size key="itemSize" width="359" height="201"/>
+                                    <size key="itemSize" width="359" height="240"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GifListViewCellIdentifier" id="lEW-3r-Odp" customClass="GifListViewCell" customModule="GiphyViewer" customModuleProvider="target">
-                                        <rect key="frame" x="3" y="0.0" width="359" height="201"/>
+                                        <rect key="frame" x="3" y="0.0" width="359" height="240"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="359" height="201"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="359" height="240"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Udf-a0-B5U" customClass="FLAnimatedImageView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="201"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="240"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="50" id="St6-cF-ETm"/>
+                                                    </constraints>
                                                 </imageView>
                                             </subviews>
                                         </view>
@@ -57,15 +60,16 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ZdW-wl-pui">
-                                <rect key="frame" x="177" y="323" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="ZdW-wl-pui">
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="srw-XL-Har" firstAttribute="top" secondItem="nYT-sX-27M" secondAttribute="bottom" id="2TH-as-TKx"/>
+                            <constraint firstItem="srw-XL-Har" firstAttribute="top" secondItem="nYT-sX-27M" secondAttribute="bottom" constant="5" id="2TH-as-TKx"/>
                             <constraint firstItem="srw-XL-Har" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="5" id="8FJ-EP-0UV"/>
+                            <constraint firstItem="ZdW-wl-pui" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="E44-JR-atC"/>
+                            <constraint firstItem="ZdW-wl-pui" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="KC8-Ux-GOa"/>
                             <constraint firstItem="nYT-sX-27M" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="SrL-Zc-DWC"/>
                             <constraint firstItem="srw-XL-Har" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="TBM-ZH-3Jd"/>
                             <constraint firstItem="nYT-sX-27M" firstAttribute="centerX" secondItem="srw-XL-Har" secondAttribute="centerX" id="TKO-Gj-CPV"/>
@@ -78,6 +82,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="ZdW-wl-pui" id="k1m-X9-gfF"/>
                         <outlet property="gifListCollectionView" destination="srw-XL-Har" id="Uha-2S-byp"/>
+                        <outlet property="searchBar" destination="nYT-sX-27M" id="Suq-hy-maN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

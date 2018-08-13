@@ -92,6 +92,31 @@ class APIService: APIServiceProtocol {
         }
     }
     
-    
+    func fetchSearchGif( searchRequest: String, complete: @escaping ( _ success: Bool, _ gifs: [Gif], _ error: APIError? )->() ) {
+        DispatchQueue.global().async {
+            let parameters: [String : Any] = ["api_key" : API.APPID, "limit" : 100, "q": searchRequest]
+            let path = APIService.ResourcePath.Search.path
+
+            Alamofire.request(path, parameters: parameters).responseJSON { response in
+                switch response.result {
+                case .success(_):
+                    //print(json)
+                    let json = response.data
+                    let decoder = JSONDecoder()
+                    decoder.dateDecodingStrategy = .iso8601
+                    do {
+                        let gifs = try decoder.decode(Gifs.self, from: json!)
+                        complete( true,  gifs.data, nil )
+                    } catch {
+                        print("Error", error.localizedDescription)
+                    }
+                case .failure(let error):
+                    print("Status code", response.response?.statusCode ?? 0)
+                    print("Error", error.localizedDescription)
+                    complete(false, [Gif](), nil)
+                }
+            }
+        }
+    }
     
 }

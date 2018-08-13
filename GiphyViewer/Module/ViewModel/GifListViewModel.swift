@@ -61,6 +61,19 @@ class GifListViewModel {
         }
     }
     
+    func initSearchFetch(searchRequest: String) {
+        //self.isLoading = true
+        cleanGifsList()
+        apiService.fetchSearchGif(searchRequest: searchRequest) { [weak self] (success, gifs, error) in
+            self?.isLoading = false
+            if let error = error {
+                self?.alertMessage = error.rawValue
+            } else {
+                self?.processFetchedGif(gifs: gifs)
+            }
+        }
+    }
+    
     func getCellViewModel( at indexPath: IndexPath ) -> GifListCellViewModel {
         return cellViewModels[indexPath.row]
     }
@@ -76,6 +89,10 @@ class GifListViewModel {
             //  dateText: dateFormatter.string(from: gif.created_at) )
         }
         return GifListCellViewModel(url: "")
+    }
+    
+    func cleanGifsList() {
+        gifs.removeAll()
     }
     
     private func processFetchedGif( gifs: [Gif] ) {
