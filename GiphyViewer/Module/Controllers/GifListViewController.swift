@@ -51,7 +51,7 @@ class GifListViewController: UIViewController {
         case .two(let searchRequest):
             searchBar.text = searchRequest
         }
-        //if let flowLayout = gifListCollectionView.collectionViewLayout as? UICollectionViewFlowLayout { flowLayout.estimatedItemSize = CGSize(width: 1, height: 1) }
+        if let flowLayout = gifListCollectionView.collectionViewLayout as? UICollectionViewFlowLayout { flowLayout.estimatedItemSize = CGSize(width: gifListCollectionView.bounds.width, height: 10) }
     }
     
     func initVM() {

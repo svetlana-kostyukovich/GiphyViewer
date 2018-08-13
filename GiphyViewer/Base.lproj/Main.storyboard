@@ -25,34 +25,32 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="srw-XL-Har">
                                 <rect key="frame" x="5" y="125" width="365" height="542"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Ngu-aP-Y3w">
-                                    <size key="itemSize" width="359" height="240"/>
+                                    <size key="itemSize" width="359" height="0.0"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="5" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GifListViewCellIdentifier" id="lEW-3r-Odp" customClass="GifListViewCell" customModule="GiphyViewer" customModuleProvider="target">
-                                        <rect key="frame" x="3" y="0.0" width="359" height="240"/>
+                                        <rect key="frame" x="3" y="5" width="359" height="0.0"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="359" height="240"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="359" height="0.0"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Udf-a0-B5U" customClass="FLAnimatedImageView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="240"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="30"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="50" id="St6-cF-ETm"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="500" constant="50" id="216-mg-Gbg"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="Udf-a0-B5U" secondAttribute="trailing" id="FLr-jH-lB7"/>
-                                            <constraint firstItem="Udf-a0-B5U" firstAttribute="top" secondItem="lEW-3r-Odp" secondAttribute="top" id="VHa-aX-uqq"/>
-                                            <constraint firstAttribute="bottom" secondItem="Udf-a0-B5U" secondAttribute="bottom" id="aTF-mB-N51"/>
-                                            <constraint firstItem="Udf-a0-B5U" firstAttribute="centerX" secondItem="lEW-3r-Odp" secondAttribute="centerX" id="kOb-OM-exl"/>
-                                            <constraint firstItem="Udf-a0-B5U" firstAttribute="centerX" secondItem="lEW-3r-Odp" secondAttribute="centerX" id="lfm-IU-COS"/>
-                                            <constraint firstAttribute="bottom" secondItem="Udf-a0-B5U" secondAttribute="bottom" id="qIL-kO-KHo"/>
+                                            <constraint firstAttribute="trailing" secondItem="Udf-a0-B5U" secondAttribute="trailing" id="JZM-KG-uMV"/>
+                                            <constraint firstItem="Udf-a0-B5U" firstAttribute="leading" secondItem="lEW-3r-Odp" secondAttribute="leading" id="WEL-4m-8w2"/>
+                                            <constraint firstItem="Udf-a0-B5U" firstAttribute="top" secondItem="lEW-3r-Odp" secondAttribute="top" id="Zzy-hH-lIF"/>
+                                            <constraint firstAttribute="bottom" secondItem="Udf-a0-B5U" secondAttribute="bottom" id="hNa-zV-8iZ"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="animatedImage" destination="Udf-a0-B5U" id="0Tg-0r-phV"/>
