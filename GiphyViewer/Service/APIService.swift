@@ -9,10 +9,18 @@
 import Foundation
 import Alamofire
 
-enum APIError: String, Error {
+/*enum APIError: String, Error {
     case noNetwork = "No Network"
     case serverOverload = "Server is overloaded"
     case permissionDenied = "You don't have permission"
+}*/
+
+struct APIError {
+    var error: String
+    
+    init(error: Error) {
+        self.error = error.localizedDescription
+    }
 }
 
 protocol APIServiceProtocol {
@@ -72,7 +80,7 @@ class APIService: APIServiceProtocol {
                 case .failure(let error):
                     print("Status code", response.response?.statusCode ?? 0)
                     print("Error", error.localizedDescription)
-                    complete(false, [Gif](), nil)
+                    complete(false, [Gif](), APIError(error: error))
                 }
             }
         }
@@ -99,7 +107,7 @@ class APIService: APIServiceProtocol {
                 case .failure(let error):
                     print("Status code", response.response?.statusCode ?? 0)
                     print("Error", error.localizedDescription)
-                    complete(false, [Gif](), nil)
+                    complete(false, [Gif](), APIError(error: error))
                 }
             }
         }

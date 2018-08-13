@@ -54,7 +54,7 @@ class GifListViewModel {
         apiService.fetchTrendingGif { [weak self] (success, gifs, error) in
             self?.isLoading = false
             if let error = error {
-                self?.alertMessage = error.rawValue
+                self?.alertMessage = error.error
             } else {
                 self?.processFetchedGif(gifs: gifs)
             }
@@ -67,7 +67,7 @@ class GifListViewModel {
         apiService.fetchSearchGif(searchRequest: searchRequest) { [weak self] (success, gifs, error) in
             self?.isLoading = false
             if let error = error {
-                self?.alertMessage = error.rawValue
+                self?.alertMessage = error.error
             } else {
                 self?.processFetchedGif(gifs: gifs)
             }
