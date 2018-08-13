@@ -52,6 +52,32 @@ class GiphyViewerTests: XCTestCase {
         
     }
     
+    func test_fetch_search_gif() {
+        // Given
+        mockAPIService.completeGifs = [Gif]()
+        
+        // When
+        sut.initSearchFetch(searchRequest: "String")
+        
+        // Assert
+        XCTAssert(mockAPIService!.isFetchTrendingGifCalled)
+    }
+    
+    func test_fetch_search_gif_fail() {
+        
+        // Given a failed fetch with a certain failure
+        let error = APIError.permissionDenied
+        
+        // When
+        sut.initSearchFetch(searchRequest: "String")
+        
+        mockAPIService.fetchFail(error: error )
+        
+        // Sut should display predefined error message
+        XCTAssertEqual( sut.alertMessage, error.rawValue )
+        
+    }
+    
     func test_create_cell_view_model() {
         // Given
         let gifs = StubGenerator().stubGifs()
@@ -96,43 +122,6 @@ class GiphyViewerTests: XCTestCase {
         wait(for: [expect], timeout: 1.0)
     }
     
-    /*func test_user_press_for_sale_item() {
-     
-     //Given a sut with fetched gifs
-     let indexPath = IndexPath(row: 0, section: 0)
-     goToFetchGifFinished()
-     
-     //When
-     sut.userPressed( at: indexPath )
-     
-     //Assert
-     XCTAssertTrue( sut.isAllowSegue )
-     XCTAssertNotNil( sut.selectedGif )
-     
-     }*/
-    
-    /*func test_user_press_not_for_sale_item() {
-     
-     //Given a sut with fetched gifs
-     let indexPath = IndexPath(row: 4, section: 0)
-     goToFetchGifFinished()
-     
-     let expect = XCTestExpectation(description: "Alert message is shown")
-     sut.showAlertClosure = { [weak sut] in
-     expect.fulfill()
-     XCTAssertEqual(sut!.alertMessage, "This item is not for sale")
-     }
-     
-     //When
-     sut.userPressed( at: indexPath )
-     
-     //Assert
-     XCTAssertFalse( sut.isAllowSegue )
-     XCTAssertNil( sut.selectedGif )
-     
-     wait(for: [expect], timeout: 1.0)
-     }*/
-    
     func test_get_cell_view_model() {
         
         //Given a sut with fetched gifs
@@ -145,19 +134,20 @@ class GiphyViewerTests: XCTestCase {
         let vm = sut.getCellViewModel(at: indexPath)
         
         //Assert
-        XCTAssertEqual( vm.url, testGif.url)
+        XCTAssertEqual( vm.url, testGif.images.original.url)
         
     }
     
     func test_cell_view_model() {
         //Given gifs
-        let gif = Gif(id: "id", title: "Title", url: "url")
+        let images = Images(original: Images.Original(url: "url"))
+        let gif = Gif(id: "id", title: "Title", images: images)
         
         // When create cell view model
         let cellViewModel = sut!.createCellViewModel( gif: gif )
         
         // Assert the correctness of display information
-        XCTAssertEqual( gif.url, cellViewModel.url )
+        XCTAssertEqual( gif.images.original.url, cellViewModel.url )
         
     }
     
@@ -175,12 +165,19 @@ extension GiphyViewerTests {
 class MockApiService: APIServiceProtocol {
     
     var isFetchTrendingGifCalled = false
+    var isFetchSearchGifCalled = false
     
     var completeGifs: [Gif] = [Gif]()
     var completeClosure: ((Bool, [Gif], APIError?) -> ())!
     
     func fetchTrendingGif(complete: @escaping (Bool, [Gif], APIError?) -> ()) {
         isFetchTrendingGifCalled = true
+        completeClosure = complete
+        
+    }
+    
+    func fetchSearchGif(searchRequest: String, complete: @escaping (Bool, [Gif], APIError?) -> ()) {
+        isFetchSearchGifCalled = true
         completeClosure = complete
         
     }

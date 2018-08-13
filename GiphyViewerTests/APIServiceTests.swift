@@ -23,19 +23,39 @@ class APIServiceTests: XCTestCase {
         super.tearDown()
     }
     
-    func test_fetch_trending_photos() {
+    func test_fetch_trending_gifs() {
         
         // Given A apiservice
         let sut = self.sut!
         
-        // When fetch popular photo
+        // When fetch popular gif
         let expect = XCTestExpectation(description: "callback")
         
-        sut.fetchTrendingGif(complete: { (success, photos, error) in
+        sut.fetchTrendingGif(complete: { (success, gifs, error) in
             expect.fulfill()
-            XCTAssertEqual( photos.count, 20)
-            for photo in photos {
-                XCTAssertNotNil(photo.id)
+            XCTAssertEqual( gifs.count, 20)
+            for gif in gifs {
+                XCTAssertNotNil(gif.id)
+            }
+            
+        })
+        
+        wait(for: [expect], timeout: 3.1)
+    }
+    
+    func test_fetch_search_gifs() {
+        
+        // Given A apiservice
+        let sut = self.sut!
+        
+        // When fetch popular gif
+        let expect = XCTestExpectation(description: "callback")
+        
+        sut.fetchSearchGif(complete: { (success, gifs, error) in
+            expect.fulfill()
+            XCTAssertEqual( gifs.count, 20)
+            for gif in gifs {
+                XCTAssertNotNil(gif.id)
             }
             
         })
