@@ -9,13 +9,20 @@
 import UIKit
 import FLAnimatedImage
 
-class GifListViewController: UIViewController {
+enum DataType {
+    case one
+    case two(String)
+}
 
+class GifListViewController: UIViewController {
+    
     @IBOutlet weak var gifListCollectionView: UICollectionView!
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var searchBar: UISearchBar!
+    
+    static var state: DataType = .one
     
     lazy var viewModel: GifListViewModel = {
         return GifListViewModel()
@@ -24,7 +31,6 @@ class GifListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
-        // init view model
         initVM()
         
     }
@@ -39,9 +45,13 @@ class GifListViewController: UIViewController {
         
         searchBar.delegate = self
         
+        switch GifListViewController.state {
+        case .one:
+            searchBar.text = ""
+        case .two(let searchRequest):
+            searchBar.text = searchRequest
+        }
         //if let flowLayout = gifListCollectionView.collectionViewLayout as? UICollectionViewFlowLayout { flowLayout.estimatedItemSize = CGSize(width: 1, height: 1) }
-        //tableView.estimatedRowHeight = 150
-        //tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     func initVM() {
@@ -71,8 +81,12 @@ class GifListViewController: UIViewController {
                 }
             }
         }
-        
-        viewModel.initFetch()
+        switch GifListViewController.state {
+        case .one:
+            viewModel.initFetch()
+        case .two(let searchRequest):
+            viewModel.initSearchFetch(searchRequest: searchRequest)
+        }
         
         viewModel.reloadCollectionViewClosure = { [weak self] () in
             DispatchQueue.main.async {
@@ -87,16 +101,7 @@ class GifListViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
 }
 
 extension GifListViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
@@ -114,7 +119,7 @@ extension GifListViewController: UICollectionViewDelegate, UICollectionViewDeleg
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GifListViewCellIdentifier", for: indexPath) as? GifListViewCell
             else {
-            fatalError("No cell")
+                fatalError("No cell")
         }
         
         let cellVM = viewModel.getCellViewModel( at: indexPath )
@@ -122,75 +127,38 @@ extension GifListViewController: UICollectionViewDelegate, UICollectionViewDeleg
         let gifData = try? Data(contentsOf: URL(string: cellVM.url)!)
         let imageData = FLAnimatedImage(gifData: gifData)
         cell.animatedImage.animatedImage = imageData
-        //cell.imageView?.sd_setImage(with: URL( string: cellVM.url ), completed: nil)
-
+        
         return cell
     }
-    
-    /*func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let side = gifListCollectionView.bounds.width
-        //collectionViewLayout. estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize
-        return CGSize(width: side, height: side)
-    }*/
-    
-    // MARK: - UICollectionViewDelegateFlowLayout
-    /*func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width/2-10.0, height: collectionView.frame.height/4-10.0)
-    }*/
-    
-    /*func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 10.0, left: 5.0, bottom: 0.0, right: 5.0)
-}*/
 }
 
 extension GifListViewController: UISearchBarDelegate {
     
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchBar.showsCancelButton = true
-        /*let searchText = searchBar.text ?? ""
-
-        
-        if !searchText.isEmpty {
-            viewModel.cleanGifsList()
-            viewModel.initSearchFetch(searchRequest: searchText)
-            print("Hi there")
-            viewModel.reloadCollectionViewClosure = { [weak self] () in
-                DispatchQueue.main.async {
-                    self?.gifListCollectionView.reloadData()
-                }
-            }
-        }*/
-        
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let searchText = searchBar.text ?? ""
-    
+        
         searchBar.resignFirstResponder()
         if !searchText.isEmpty {
-            viewModel.cleanGifsList()
-            viewModel.initSearchFetch(searchRequest: searchText)
-            print("Hi there")
-            viewModel.reloadCollectionViewClosure = { [weak self] () in
-                DispatchQueue.main.async {
-                    self?.gifListCollectionView.reloadData()
-                }
-            }
+            GifListViewController.state = .two(searchText)
+            
+            let viewController:UIViewController = (self.storyboard?.instantiateViewController(withIdentifier: "GifListViewControllerID"))!
+            self.navigationController?.pushViewController(viewController, animated: true)
+            
         }
         
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        //gifs.removeAll()
         searchBar.text?.removeAll()
         searchBar.resignFirstResponder()
-        //uploadGifs()
-        /*viewModel.reloadCollectionViewClosure = { [weak self] () in
-            DispatchQueue.main.async {
-                self?.gifListCollectionView.reloadData()
-            }
-        }*/
         searchBar.showsCancelButton = false
     }
     

@@ -62,7 +62,7 @@ class GifListViewModel {
     }
     
     func initSearchFetch(searchRequest: String) {
-        //self.isLoading = true
+        self.isLoading = true
         cleanGifsList()
         apiService.fetchSearchGif(searchRequest: searchRequest) { [weak self] (success, gifs, error) in
             self?.isLoading = false
