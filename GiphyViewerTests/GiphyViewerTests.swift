@@ -11,6 +11,10 @@ import XCTest
 
 class GiphyViewerTests: XCTestCase {
     
+    enum TestError : Error {
+        case newError
+    }
+    
     var sut: GifListViewModel!
     var mockAPIService: MockApiService!
     
@@ -38,17 +42,16 @@ class GiphyViewerTests: XCTestCase {
     }
     
     func test_fetch_gif_fail() {
-        
         // Given a failed fetch with a certain failure
-        let error = APIError.permissionDenied
-        
+        let error = TestError.newError
+
         // When
         sut.initFetch()
         
-        mockAPIService.fetchFail(error: error )
+        mockAPIService.fetchFail(error: APIError.init(error: error ))
         
         // Sut should display predefined error message
-        XCTAssertEqual( sut.alertMessage, error.rawValue )
+        XCTAssertEqual( sut.alertMessage, APIError.init(error: error ).error )
         
     }
     
@@ -60,21 +63,22 @@ class GiphyViewerTests: XCTestCase {
         sut.initSearchFetch(searchRequest: "String")
         
         // Assert
-        XCTAssert(mockAPIService!.isFetchTrendingGifCalled)
+        XCTAssert(mockAPIService!.isFetchSearchGifCalled)
+        
     }
     
     func test_fetch_search_gif_fail() {
         
         // Given a failed fetch with a certain failure
-        let error = APIError.permissionDenied
+        let error = TestError.newError
         
         // When
         sut.initSearchFetch(searchRequest: "String")
         
-        mockAPIService.fetchFail(error: error )
+        mockAPIService.fetchFail(error: APIError.init(error: error ))
         
         // Sut should display predefined error message
-        XCTAssertEqual( sut.alertMessage, error.rawValue )
+        XCTAssertEqual( sut.alertMessage, APIError.init(error: error).error)
         
     }
     

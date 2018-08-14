@@ -33,34 +33,34 @@ class APIServiceTests: XCTestCase {
         
         sut.fetchTrendingGif(complete: { (success, gifs, error) in
             expect.fulfill()
-            XCTAssertEqual( gifs.count, 20)
+            XCTAssertTrue(gifs.count > 0)
             for gif in gifs {
                 XCTAssertNotNil(gif.id)
             }
             
         })
         
-        wait(for: [expect], timeout: 3.1)
+        wait(for: [expect], timeout: 20)
     }
     
     func test_fetch_search_gifs() {
         
         // Given A apiservice
         let sut = self.sut!
-        
-        // When fetch popular gif
+        // When fetch search gif
         let expect = XCTestExpectation(description: "callback")
+        let searchRequest = "String"
         
-        sut.fetchSearchGif(complete: { (success, gifs, error) in
+        sut.fetchSearchGif(searchRequest: searchRequest, complete: { (success, gifs, error) in
             expect.fulfill()
-            XCTAssertEqual( gifs.count, 20)
+            XCTAssertTrue( gifs.count > 0)
             for gif in gifs {
                 XCTAssertNotNil(gif.id)
             }
             
         })
         
-        wait(for: [expect], timeout: 3.1)
+        wait(for: [expect], timeout: 20)
     }
     
 }
