@@ -66,6 +66,9 @@ class GifListViewModel {
         cleanGifsList()
         apiService.fetchSearchGif(searchRequest: searchRequest) { [weak self] (success, gifs, error) in
             self?.isLoading = false
+            if gifs.isEmpty {
+                self?.alertMessage = "No GIFs found :("
+            }
             if let error = error {
                 self?.alertMessage = error.error
             } else {

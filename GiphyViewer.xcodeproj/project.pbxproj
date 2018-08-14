@@ -14,7 +14,6 @@
 		C4489C9821202AA100345B7A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4489C9721202AA000345B7A /* Assets.xcassets */; };
 		C4489C9B21202AA100345B7A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4489C9921202AA100345B7A /* LaunchScreen.storyboard */; };
 		C4489CA621202AA100345B7A /* GiphyViewerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4489CA521202AA100345B7A /* GiphyViewerTests.swift */; };
-		C4489CB121202AA100345B7A /* GiphyViewerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4489CB021202AA100345B7A /* GiphyViewerUITests.swift */; };
 		C4489CBF21202AD300345B7A /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = C4489CBE21202AD300345B7A /* Podfile */; };
 		C4489CC621202EB600345B7A /* Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4489CC521202EB600345B7A /* Gif.swift */; };
 		C4489CC821202ECC00345B7A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C4489CC721202ECB00345B7A /* Default-568h@2x.png */; };
@@ -60,8 +59,6 @@
 		C4489CA521202AA100345B7A /* GiphyViewerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphyViewerTests.swift; sourceTree = "<group>"; };
 		C4489CA721202AA100345B7A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4489CAC21202AA100345B7A /* GiphyViewerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GiphyViewerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C4489CB021202AA100345B7A /* GiphyViewerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphyViewerUITests.swift; sourceTree = "<group>"; };
-		C4489CB221202AA100345B7A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4489CBE21202AD300345B7A /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		C4489CC521202EB600345B7A /* Gif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gif.swift; sourceTree = "<group>"; };
 		C4489CC721202ECB00345B7A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -115,7 +112,6 @@
 				C4489CC721202ECB00345B7A /* Default-568h@2x.png */,
 				C4489C8F21202A9F00345B7A /* GiphyViewer */,
 				C4489CA421202AA100345B7A /* GiphyViewerTests */,
-				C4489CAF21202AA100345B7A /* GiphyViewerUITests */,
 				C4489C8E21202A9F00345B7A /* Products */,
 				C4489CBE21202AD300345B7A /* Podfile */,
 				F13D1973B70E524B3DE1998B /* Pods */,
@@ -154,15 +150,6 @@
 				C4489CD721209BFD00345B7A /* APIServiceTests.swift */,
 			);
 			path = GiphyViewerTests;
-			sourceTree = "<group>";
-		};
-		C4489CAF21202AA100345B7A /* GiphyViewerUITests */ = {
-			isa = PBXGroup;
-			children = (
-				C4489CB021202AA100345B7A /* GiphyViewerUITests.swift */,
-				C4489CB221202AA100345B7A /* Info.plist */,
-			);
-			path = GiphyViewerUITests;
 			sourceTree = "<group>";
 		};
 		C4489CC021202C1200345B7A /* SupportingFiles */ = {
@@ -455,7 +442,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4489CB121202AA100345B7A /* GiphyViewerUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

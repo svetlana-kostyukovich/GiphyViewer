@@ -15,7 +15,7 @@ import Alamofire
     case permissionDenied = "You don't have permission"
 }*/
 
-struct APIError {
+struct APIError: Error {
     var error: String
     
     init(error: Error) {
