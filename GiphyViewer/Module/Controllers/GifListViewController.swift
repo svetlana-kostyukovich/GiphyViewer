@@ -55,7 +55,7 @@ class GifListViewController: UIViewController {
         }
 
         refreshControl.addTarget(self, action: #selector(refreshCollectionView(sender:)), for: .valueChanged)
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: [NSAttributedStringKey.foregroundColor : UIColor.white])
         
         if #available(iOS 10.0, *) {
             gifListCollectionView.refreshControl = refreshControl
