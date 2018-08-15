@@ -61,7 +61,7 @@ class GifListViewController: UIViewController {
             gifListCollectionView.refreshControl = refreshControl
         } else {
             gifListCollectionView.addSubview(refreshControl)
-        }
+        }        
 
     }
     
@@ -140,7 +140,6 @@ extension GifListViewController: UICollectionViewDelegate, UICollectionViewDeleg
         let cellVM = viewModel.getCellViewModel( at: indexPath )
         let gifData = try? Data(contentsOf: URL(string: cellVM.url)!)
         let imageData = FLAnimatedImage(gifData: gifData)
-        cell.contentView.autoresizingMask = [.flexibleHeight]
         cell.animatedImage.animatedImage = imageData
         
         return cell
