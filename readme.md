@@ -1,4 +1,4 @@
-## **Brief description**
+## **Brief description:**
 
 This is an application wich shows GIFs using GIPHY API.
 It provides both trending and searching.
