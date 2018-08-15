@@ -10,4 +10,4 @@ This application contains cocoapods: Once you have downloaded the project, navig
 
 ## **TODO later:**
 
-Update cells height dynamiclly.
+Update cells height dynamically.
