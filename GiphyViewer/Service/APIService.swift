@@ -61,7 +61,7 @@ class APIService: APIServiceProtocol {
     // Simulate a long waiting for fetching
     func fetchTrendingGif( complete: @escaping ( _ success: Bool, _ gifs: [Gif], _ error: APIError? )->() ) {
         DispatchQueue.global().async {
-/*            let parameters = RequestParameters.Trending.parameters
+            let parameters = RequestParameters.Trending.parameters
             let path = APIService.ResourcePath.Trending.path
             
             Alamofire.request(path, parameters: parameters).responseJSON { response in
@@ -82,14 +82,15 @@ class APIService: APIServiceProtocol {
                     print("Error", error.localizedDescription)
                     complete(false, [Gif](), APIError(error: error))
                 }
-            }*/
-            sleep(2)
+            }
+        // For Testing
+          /*  sleep(2)
             let path = Bundle.main.path(forResource: "content", ofType: "json")!
             let data = try! Data(contentsOf: URL(fileURLWithPath: path))
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601
             let gifs = try! decoder.decode(Gifs.self, from: data)
-            complete( true, gifs.data, nil )
+            complete( true, gifs.data, nil )*/
         }
     }
     

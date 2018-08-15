@@ -53,7 +53,7 @@ class GifListViewController: UIViewController {
         case .Search(let searchRequest):
             searchBar.text = searchRequest
         }
-
+        
         refreshControl.addTarget(self, action: #selector(refreshCollectionView(sender:)), for: .valueChanged)
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: [NSAttributedStringKey.foregroundColor : UIColor.white])
         
@@ -62,7 +62,7 @@ class GifListViewController: UIViewController {
         } else {
             gifListCollectionView.addSubview(refreshControl)
         }        
-
+        
     }
     
     func initVM() {

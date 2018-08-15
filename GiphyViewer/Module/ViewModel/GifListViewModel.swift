@@ -83,13 +83,8 @@ class GifListViewModel {
     
     func createCellViewModel( gif: Gif ) -> GifListCellViewModel {
         
-        //Wrap a description
-        //var descTextContainer: [String] = [String]()
         if let url = gif.images.original.url {
-            return GifListCellViewModel(url: url) //titleText: gif.name,
-            //  descText: desc,
-            //  imageUrl: gif.image_url,
-            //  dateText: dateFormatter.string(from: gif.created_at) )
+            return GifListCellViewModel(url: url)
         }
         return GifListCellViewModel(url: "")
     }
@@ -109,25 +104,6 @@ class GifListViewModel {
     
 }
 
-/*extension GifListViewModel {
- func userPressed( at indexPath: IndexPath ){
- let gif = self.gifs[indexPath.row]
- if gif.for_sale {
- self.isAllowSegue = true
- self.selectedGif = gif
- }else {
- self.isAllowSegue = false
- self.selectedGif = nil
- self.alertMessage = "This item is not for sale"
- }
- 
- }
- }*/
-
 struct GifListCellViewModel {
     let url: String
-    //let title: String
-    //let descText: String
-    //let imageUrl: String
-    //let dateText: String
 }

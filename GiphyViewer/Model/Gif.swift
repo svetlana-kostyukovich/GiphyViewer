@@ -24,12 +24,4 @@ struct Gif: Codable {
     let id: String!
     let title: String?
     let images: Images
-    //let smallImgUrl: String?
-    //let originalImgUrl: String?
-    //let url: String?
-    /*enum CodingKeys: String, CodingKey {
-        case id
-        case title
-        case original
-    }*/
 }
