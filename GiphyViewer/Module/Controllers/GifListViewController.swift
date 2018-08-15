@@ -22,6 +22,8 @@ class GifListViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
+    let refreshControl = UIRefreshControl()
+    
     static var state: State = .Trending
     
     lazy var viewModel: GifListViewModel = {
@@ -51,7 +53,16 @@ class GifListViewController: UIViewController {
         case .Search(let searchRequest):
             searchBar.text = searchRequest
         }
-        if let flowLayout = gifListCollectionView.collectionViewLayout as? UICollectionViewFlowLayout { flowLayout.estimatedItemSize = CGSize(width: gifListCollectionView.bounds.width, height: 10) }
+
+        refreshControl.addTarget(self, action: #selector(refreshCollectionView(sender:)), for: .valueChanged)
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        
+        if #available(iOS 10.0, *) {
+            gifListCollectionView.refreshControl = refreshControl
+        } else {
+            gifListCollectionView.addSubview(refreshControl)
+        }
+
     }
     
     func initVM() {
@@ -97,15 +108,13 @@ class GifListViewController: UIViewController {
     
     func showAlert( _ message: String ) {
         let alert = UIAlertController(title: "Oops", message: message, preferredStyle: .alert)
-        alert.addAction( UIAlertAction(title: "OK", style: .cancel, handler: { action in
-            switch GifListViewController.state {
-            case .Trending:
-                break
-            case .Search(_):
-                GifListViewController.state = .Search("")
-            }
-        }))
+        alert.addAction( UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func refreshCollectionView(sender: UIRefreshControl) {
+        initVM()
+        sender.endRefreshing()
     }
     
 }
@@ -129,9 +138,9 @@ extension GifListViewController: UICollectionViewDelegate, UICollectionViewDeleg
         }
         
         let cellVM = viewModel.getCellViewModel( at: indexPath )
-        
         let gifData = try? Data(contentsOf: URL(string: cellVM.url)!)
         let imageData = FLAnimatedImage(gifData: gifData)
+        cell.contentView.autoresizingMask = [.flexibleHeight]
         cell.animatedImage.animatedImage = imageData
         
         return cell
@@ -166,6 +175,7 @@ extension GifListViewController: UISearchBarDelegate {
         searchBar.text?.removeAll()
         searchBar.resignFirstResponder()
         searchBar.showsCancelButton = false
+        GifListViewController.state = .Trending
     }
     
 }
