@@ -2,7 +2,7 @@
 
 This is an application wich shows GIFs using GIPHY API.
 It provides both trending and searching.
-For this project FLAnimatedImage, Alamofire and Codable were used.
+For this project FLAnimatedImage, Alamofire, Codable and also MVVM pattern were used.
 
 ## **How to run the app:**
 
