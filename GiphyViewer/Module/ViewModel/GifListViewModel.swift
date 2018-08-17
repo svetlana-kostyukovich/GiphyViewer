@@ -32,7 +32,7 @@ class GifListViewModel {
     }
     
     var numberOfCells: Int {
-        print ("count:  \(cellViewModels.count)")
+        //print ("count:  \(cellViewModels.count)")
         return cellViewModels.count
     }
     
